@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JavaScript Form validation</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form name="contactForm" onsubmit="return validateForm()" action="index2.html">
+    <h2>Registration Form</h2>
+    <div class="row">
+        <label>First Name</label>
+        <input type="text" name="f_name" minlength="6">
+        <div class="error" id="nameErr"></div>
+    </div>
+    <div class="row">
+        <label>Last Name</label>
+        <input type="text" name="l_name" minlength="6">
+        <div class="error" id="l_nameErr"></div>
+    </div>
+    <div class="row">
+        <label>Email Address</label>
+        <input type="email" name="email">
+        <div class="error" id="emailErr"></div>
+    </div>
+    <div class="row">
+        <label>Password</label>
+        <input type="password" name="pass" minlength="8">
+        <div class="error" id="passErr"></div>
+    </div>
+    <div class="row">
+        <label>Mobile Number</label>
+        <input type="number" name="mobile" minlength="10">
+        <div class="error" id="mobileErr"></div>
+    </div>
+    <div class="row">
+        <label>Postal Address</label>
+        <input type="text" name="code" minlength="12">
+        <div class="error" id="codeErr"></div>
+    </div>
+    <div class="row">
+        <label>Gender</label>
+        <div class="form-inline">
+            <label><input type="radio" name="gender" value="male"> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+        </div>
+        <div class="error" id="genderErr"></div>
+    </div>
+    <div class="row">
+        <label>Date of Birth</label>
+        <input type="date" name="dob" >
+        <div class="error"></div>
+    </div>
+    <div class="row">
+        <label>CV</label>
+        <input type="file" id="file" name="cv">
+        <div class="error" id="cvErr"></div>
+    </div>
+    <div class="row">
+        <input type="submit" value="Submit">
+    </div>
+</form>
+</body>
+<script>
+    // Defining a function to display error message
+    function printError(elemId, hintMsg) {
+        document.getElementById(elemId).innerHTML = hintMsg;
+    }
+    // Defining a function to validate form 
+    function validateForm() {
+        var f_name = document.contactForm.f_name.value;
+        var l_name = document.contactForm.l_name.value;
+        var email = document.contactForm.email.value;
+        var pass=document.contactForm.pass.value;
+        var mobile = document.contactForm.mobile.value;
+        var code=document.contactForm.code.value;
+        var gender = document.contactForm.gender.value;
+        var cv=document.contactForm.cv.value;
+       // Defining error variables with a default value
+        var nameErr =l_nameErr = emailErr = mobileErr = genderErr = codeErr =  passErr = cvErr= true;
+        // Validate name
+        if(f_name == "") {
+            printError("nameErr", "Please enter your first  name");
+        } else {
+            var regex = /^[A-Z]+$/;    
+            if(regex.test(f_name) === true) {
+                printError("nameErr", "");
+                nameErr = false;
+            }
+            else {
+                printError("nameErr", "Name must start with capital letter & only contin character");
+}
+        }
+        // validate last name
+        if(l_name == "") {
+            printError("l_nameErr", "Please enter your last name");
+        } else {
+            var regex = /^[A-Z]+$/;               
+            if(regex.test(l_name) === true) {
+                printError("l_nameErr", "");
+                l_nameErr = false;
+
+            }
+            else {
+                printError("l_nameErr", " last Name must start with capital letter &  only contain chararcter");
+            }
+        }
+        // Validate email address
+        if(email == "") {
+            printError("emailErr", "Please enter your email address");
+        } else {
+            // Regular expression for basic email validation
+            var regex = /^\S+@\S+\.\S+$/;
+            if(regex.test(email) === false) {
+                printError("emailErr", "Please enter a valid email address");
+            } else{
+                printError("emailErr", "");
+                emailErr = false;
+            }
+        }
+        // verify password
+        if(pass==""){
+            printError("passErr","please enter your password");
+        }
+        else{
+            var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,100}$/;
+            if(passw.test(pass)===false){
+                printError("passErr","passowrd must contain atleast 1 capital letter and 1 numeric value ")
+            }
+            else{
+                printError("passErr","");
+                passErr=false;
+            }
+        }
+        
+        // Validate mobile number
+        if(mobile == "") {
+            printError("mobileErr", "Please enter your mobile number");
+        } else {
+            var regex = /^[0-9]+$/;
+            if(regex.test(mobile) === true) {
+                printError("mobileErr", "");
+                mobileErr = false;
+            }
+            else{
+                printError("mobileErr", "Please enter a valid 10 digit mobile number");
+            }
+        }
+        // validate postal code
+        if(code == "") {
+            printError("codeErr", "Please enter your postal code");
+        } else {
+            var regex = /^[a-zA-Z]+$/;
+            if(regex.test(code) === true) {
+                printError("codeErr", "Please enter a valid postal address and does not contain number");
+            }
+            var regx= /^[0-9\s]+$/;
+            if(regx.test(code)==true){
+                printError("codeErr","postal address only contain character")
+            }
+             else{
+                printError("codeErr", "");
+                codeErr = false;
+            }
+        }
+        
+        // Validate gender
+        if(gender == "") {
+            printError("genderErr", "Please select your gender");
+        } else {
+            printError("genderErr", "");
+            genderErr = false;
+        }
+        // validate cv
+        if(cv== ""){
+            printError("cvErr","please upload file")
+            
+        }
+        else{
+            var allowedExtensions =/(\.doc|\.docx|\.pdf|\.tex|\.txt|\.wps)$/i;
+            if (!allowedExtensions.exec(cv)) {
+            printError("cvErr","invalid File type");
+            }
+            else{
+                printError("cvErr","");
+                cvErr=false;
+            }
+        }
+        // Prevent the form from being submitted if there are any errors
+        if((nameErr || l_nameErr || emailErr || mobileErr  || genderErr  || codeErr || passErr || cvErr) == true) {
+           return false;
+        } else {
+              alert ("your form has been submitted successfully");
+            }
+    };
+    </script>
+</html>

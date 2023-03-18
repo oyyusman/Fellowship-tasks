@@ -1,0 +1,40 @@
+body {
+    font-size: 16px;
+}
+form {
+    width: 500px;
+    padding: 15px 40px 40px;
+    margin: 50px auto 0;
+}
+label {
+    display: block;
+    margin-bottom: 5px
+}
+label i {
+    font-size: 80%;
+}
+input, select {
+    padding: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+.row {
+    padding-bottom: 10px;
+}
+.form-inline {
+   padding: 8px 10px 4px;
+    border-radius: 2px;
+}
+input[type="submit"] {
+    background: #ca1726;
+    border-color: #ca1726;
+    box-shadow: 0 3px 0 #ca1726;
+    color: #fff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background: #ca1726;
+}
